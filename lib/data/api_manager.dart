@@ -1,5 +1,6 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'models/details_response.dart';
 import 'models/popular_movies_response.dart';
 import 'models/top_rated_movies_response.dart';
 import 'models/upcoming_movies_response.dart';
@@ -10,6 +11,7 @@ class ApiManager {
   static const String _topRatedMoviesEndPoint = "/movie/top_rated";
   static const String _upcomingMoviesEndPoint = "/movie/upcoming";
   static const String _accessToken = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0MDZiNmU2ZGFhZGEyMjgzMDhhNjliYmI3NTBhYzlmNiIsIm5iZiI6MTcyNTUyMzE3MC4yMzEwMjgsInN1YiI6IjY2ZDZhYzViNTdiM2Y1YTVjOWY3MGM1MyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.WL_29eaGeZ3TyUdfA9RLU6qWpsTNatByenRYUMUQEjo";
+  final String _apiKey = '406b6e6daada228308a69bbb750ac9f6';
 
   static Future<PopularMoviesResponse> getPopularMovies() async {
     final response = await http.get(
@@ -63,6 +65,118 @@ class ApiManager {
     } else {
       // Handle failure
       throw Exception('Failed to load upcoming movies');
+    }
+  }
+
+
+  Future<Details?> fetchMovieDetails(String movieId) async {
+    try {
+      final response = await http.get(
+        Uri.parse('$_baseUrl/movie/$movieId?api_key=$_accessToken&language=en-US'),
+        headers: {
+          'Authorization': 'Bearer $_accessToken',
+          'Content-Type': 'application/json;charset=utf-8',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final jsonResponse = jsonDecode(response.body);
+        return Details.fromJson(jsonResponse);
+      } else {
+        throw Exception('Failed to load movie details');
+      }
+    } catch (e) {
+      print('Error: $e');
+      rethrow;
+    }
+  }
+
+  Future<Map<String, dynamic>?> getMovieImages(String movieId) async {
+    try {
+      final response = await http.get(
+        Uri.parse('$_baseUrl/movie/$movieId/images?api_key=$_accessToken'),
+        headers: {
+          'Authorization': 'Bearer $_accessToken',
+          'Content-Type': 'application/json;charset=utf-8',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        return jsonDecode(response.body);
+      } else {
+        throw Exception('Failed to load movie images');
+      }
+    } catch (e) {
+      print('Error: $e');
+      rethrow;
+    }
+  }
+
+  Future<Map<String, dynamic>?> getSimilarMovies(String movieId) async {
+    try {
+      final response = await http.get(
+        Uri.parse('$_baseUrl/movie/$movieId/similar?api_key=$_accessToken'),
+        headers: {
+          'Authorization': 'Bearer $_accessToken',
+          'Content-Type': 'application/json;charset=utf-8',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        return jsonDecode(response.body);
+      } else {
+        throw Exception('Failed to load similar movies');
+      }
+    } catch (e) {
+      print('Error: $e');
+      rethrow;
+    }
+  }
+
+  Future<Map<String, dynamic>?> getCategories() async {
+    try {
+      final response = await http.get(
+        Uri.parse('$_baseUrl/genre/movie/list?api_key=$_accessToken'),
+        headers: {
+          'Authorization': 'Bearer $_accessToken',
+          'Content-Type': 'application/json;charset=utf-8',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        return jsonDecode(response.body);
+      } else {
+        throw Exception('Failed to load categories');
+      }
+    } catch (e) {
+      print('Error: $e');
+      rethrow;
+    }
+  }
+
+  Future<Map<String, dynamic>?> getMoviesByGenre(int? genreId) async {
+    if (genreId == null) {
+      print('Genre ID is null');
+      return null;
+    }
+
+    try {
+      final response = await http.get(
+        Uri.parse('$_baseUrl/discover/movie?api_key=$_accessToken&with_genres=$genreId'),
+        headers: {
+          'Authorization': 'Bearer $_accessToken',
+          'Content-Type': 'application/json;charset=utf-8',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        return jsonDecode(response.body);
+      } else {
+        throw Exception('Failed to load movies by genre');
+      }
+    } catch (e) {
+      print('Error: $e');
+      rethrow;
     }
   }
 }
