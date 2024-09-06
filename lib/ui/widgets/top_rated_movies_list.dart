@@ -4,9 +4,9 @@ import '../../data/api_manager.dart';
 import '../../data/models/top_rated_movies_response.dart';
 
 class RecommendedMovies extends StatefulWidget {
-  final Function(List<Result>) onWatchlistUpdated; // Callback to update parent
+  final Function(List<Result>) onWatchlistUpdated;
 
-  RecommendedMovies({required this.onWatchlistUpdated});
+  const RecommendedMovies({super.key, required this.onWatchlistUpdated});
 
   @override
   _RecommendedMoviesState createState() => _RecommendedMoviesState();
@@ -36,13 +36,13 @@ class _RecommendedMoviesState extends State<RecommendedMovies> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Color(0xFF282A28),
+      color: const Color(0xFF282A28),
       height: 286,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(16.0),
+         const Padding(
+            padding: EdgeInsets.all(16.0),
             child: Text(
               'Recommended',
               style: TextStyle(
@@ -57,11 +57,11 @@ class _RecommendedMoviesState extends State<RecommendedMovies> {
               future: _topRatedMoviesFuture,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return LoadingView();
+                  return const LoadingView();
                 } else if (snapshot.hasError) {
                   return Center(child: Text('Error: ${snapshot.error}'));
                 } else if (!snapshot.hasData || snapshot.data!.results.isEmpty) {
-                  return Center(child: Text('No top-rated movies available.'));
+                  return const Center(child: Text('No top-rated movies available.'));
                 }
 
                 return SingleChildScrollView(
@@ -73,8 +73,8 @@ class _RecommendedMoviesState extends State<RecommendedMovies> {
                       return Container(
                         width: 97,
                         height: 225,
-                        margin: EdgeInsets.symmetric(horizontal: 8),
-                        color: Color(0xFF343534),
+                        margin: const EdgeInsets.symmetric(horizontal: 8),
+                        color: const Color(0xFF343534),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -88,7 +88,7 @@ class _RecommendedMoviesState extends State<RecommendedMovies> {
                                       image: NetworkImage('https://image.tmdb.org/t/p/w500${movie.posterPath}'),
                                       fit: BoxFit.cover,
                                     ),
-                                    borderRadius: BorderRadius.vertical(top: Radius.circular(8)),
+                                    borderRadius: const BorderRadius.vertical(top: Radius.circular(8)),
                                   ),
                                 ),
                                 Positioned(
@@ -99,7 +99,7 @@ class _RecommendedMoviesState extends State<RecommendedMovies> {
                                       IconButton(
                                         icon: Icon(
                                           Icons.bookmark,
-                                          color: isInWatchlist ? Color(0xFFF7B539) : Color(0xFF514F4F),
+                                          color: isInWatchlist ? const Color(0xFFF7B539) : const Color(0xFF514F4F),
                                           size: 36,
                                         ),
                                         onPressed: () {
@@ -126,21 +126,21 @@ class _RecommendedMoviesState extends State<RecommendedMovies> {
                                 children: [
                                   Row(
                                     children: [
-                                      Icon(Icons.star, color: Colors.yellow, size: 10),
-                                      SizedBox(width: 4),
+                                      const Icon(Icons.star, color: Colors.yellow, size: 10),
+                                      const SizedBox(width: 4),
                                       Text(
                                         '${movie.voteAverage}',
-                                        style: TextStyle(color: Colors.white, fontSize: 10),
+                                        style: const TextStyle(color: Colors.white, fontSize: 10),
                                       ),
                                     ],
                                   ),
                                   Text(
                                     movie.title,
-                                    style: TextStyle(fontSize: 10, color: Colors.white, fontWeight: FontWeight.w400),
+                                    style: const TextStyle(fontSize: 10, color: Colors.white, fontWeight: FontWeight.w400),
                                   ),
                                   Text(
                                     '${movie.releaseDate.year} PG-13 2h 50m',
-                                    style: TextStyle(fontSize: 8, color: Colors.white, fontWeight: FontWeight.w400),
+                                    style: const TextStyle(fontSize: 8, color: Colors.white, fontWeight: FontWeight.w400),
                                   ),
                                 ],
                               ),

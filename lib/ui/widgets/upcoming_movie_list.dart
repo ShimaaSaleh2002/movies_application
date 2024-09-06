@@ -3,6 +3,8 @@ import '../../data/api_manager.dart';
 import '../../data/models/upcoming_movies_response.dart';
 
 class NewReleasesWidget extends StatefulWidget {
+  const NewReleasesWidget({super.key});
+
   @override
   _NewReleasesWidgetState createState() => _NewReleasesWidgetState();
 }
@@ -42,17 +44,17 @@ class _NewReleasesWidgetState extends State<NewReleasesWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Color(0xFF282A28),
-      padding: EdgeInsets.all(16),
+      color: const Color(0xFF282A28),
+      padding:const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          const Text(
             'New Releases',
             style: TextStyle(fontSize: 15, fontWeight: FontWeight.w400,color: Colors.white),
           ),
-          SizedBox(height: 16),
-          Container(
+          const SizedBox(height: 16),
+          SizedBox(
             height: 128,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
@@ -63,7 +65,7 @@ class _NewReleasesWidgetState extends State<NewReleasesWidget> {
 
                 return Container(
                   width: 97,
-                  margin: EdgeInsets.only(right: 16),
+                  margin: const EdgeInsets.only(right: 16),
                   child: Stack(
                     children: [
                       ClipRRect(
@@ -83,7 +85,7 @@ class _NewReleasesWidgetState extends State<NewReleasesWidget> {
                             IconButton(
                               icon: Icon(
                                 Icons.bookmark,
-                                color: isInWatchlist ? Color(0xFFF7B539) : Color(0xFF514F4F),
+                                color: isInWatchlist ?const Color(0xFFF7B539) : const Color(0xFF514F4F),
                                 size: 36,
                               ),
                               onPressed: () {

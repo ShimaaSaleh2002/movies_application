@@ -15,7 +15,7 @@ class ErrorView extends StatelessWidget {
     return Column(
       children: [
         Text(error),
-        ElevatedButton(onPressed: () {}, child: Text("Retry"))
+        ElevatedButton(onPressed: () {}, child: const Text("Retry"))
       ],
     );
   }
