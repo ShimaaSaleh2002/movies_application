@@ -12,7 +12,7 @@ class NewReleasesWidget extends StatefulWidget {
 class _NewReleasesWidgetState extends State<NewReleasesWidget> {
   List<Result> upcomingMovies = [];
   Set<int> watchlist = {};
-
+  bool isPressed = false;
   @override
   void initState() {
     super.initState();
@@ -45,13 +45,14 @@ class _NewReleasesWidgetState extends State<NewReleasesWidget> {
   Widget build(BuildContext context) {
     return Container(
       color: const Color(0xFF282A28),
-      padding:const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
             'New Releases',
-            style: TextStyle(fontSize: 15, fontWeight: FontWeight.w400,color: Colors.white),
+            style: TextStyle(
+                fontSize: 15, fontWeight: FontWeight.w400, color: Colors.white),
           ),
           const SizedBox(height: 16),
           SizedBox(
@@ -85,11 +86,14 @@ class _NewReleasesWidgetState extends State<NewReleasesWidget> {
                             IconButton(
                               icon: Icon(
                                 Icons.bookmark,
-                                color: isInWatchlist ?const Color(0xFFF7B539) : const Color(0xFF514F4F),
+                                color: isPressed
+                                    ? const Color(0xFFF7B539)
+                                    : const Color(0xFF514F4F),
                                 size: 36,
                               ),
                               onPressed: () {
-                                toggleWatchlist(movie.id, movie); // Add or remove movie from the watchlist
+                                isPressed = !isPressed;
+                                setState(() {});
                               },
                             ),
                             Positioned(

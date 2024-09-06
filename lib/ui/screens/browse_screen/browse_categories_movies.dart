@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:movies_app/ui/screens/browse_screen/inside_category_item.dart';
 import 'package:movies_app/ui/widgets/loading_view.dart';
 import '../../../data/api_manager.dart';
+import '../home_screen/movie_details_screen.dart';
 
 class BrowseMoviesByCategory extends StatelessWidget {
   final int genreId;
@@ -30,14 +32,26 @@ class BrowseMoviesByCategory extends StatelessWidget {
             final movies = snapshot.data!['results'] as List<dynamic>;
             return GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 1,
+                crossAxisCount: 2,
                 crossAxisSpacing: 8.0,
                 mainAxisSpacing: 8.0,
               ),
               itemCount: movies.length,
               itemBuilder: (context, index) {
                 final movie = movies[index];
-                return MovieCard(movie: movie);
+                return InkWell(
+                    onTap:() {
+
+                    }
+                    ,child: InkWell(
+                    onTap:(){
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => MovieDetailsScreen(movie: movie),
+                        ),
+                      );
+                    },child: InsideCategoryItem(movie: movie)));
               },
             );
           }
@@ -47,36 +61,5 @@ class BrowseMoviesByCategory extends StatelessWidget {
   }
 }
 
-class MovieCard extends StatelessWidget {
-  final Map<String, dynamic> movie;
 
-  MovieCard({required this.movie});
 
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            width: double.infinity,
-            height: 350,
-            child: Image.network(
-              'https://image.tmdb.org/t/p/w500${movie['poster_path']}',
-              fit: BoxFit.cover,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              movie['title'] ?? 'No Title',
-              style: const TextStyle(fontWeight: FontWeight.bold),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}

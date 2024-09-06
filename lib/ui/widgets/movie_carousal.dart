@@ -3,6 +3,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:movies_app/ui/widgets/loading_view.dart';
 import '../../data/api_manager.dart';
 import '../../data/models/popular_movies_response.dart';
+import '../screens/home_screen/movie_details_screen.dart';
 import 'movie_item_carousal.dart';
 
 class MovieCarousel extends StatefulWidget {
@@ -46,36 +47,36 @@ class _MovieCarouselState extends State<MovieCarousel> {
       color: const Color(0xFF121312),
       child: Stack(
         children: [
-          // Positioned(
-          //   top: 0,
-          //   left: 0,
-          //   right: 0,
-          //   child: Center(
-          //     child: IconButton(
-          //       icon: Icon(Icons.play_circle_outline, size: 50, color: Colors.white),
-          //       onPressed: () {
-          //       },
-          //     ),
-          //   ),
-          // ),
           Positioned(
             top: 0,
             left: 0,
             right: 0,
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              child: CarouselSlider.builder(
-                itemCount: movies.length,
-                options: CarouselOptions(
-                  height: 289,
-                  autoPlay: true,
-                  viewportFraction: 1.0,
-                ),
-                itemBuilder: (context, index, realIndex) {
-                  final movie = movies[index];
-                  return MovieItemCarousal(movie: movie, toggleWatchlist: (int movieId) {  },);
-                },
+            child: CarouselSlider.builder(
+              itemCount: movies.length,
+              options: CarouselOptions(
+                height: 289,
+                autoPlay: true,
+                viewportFraction: 1.0,
               ),
+              itemBuilder: (context, index, realIndex) {
+                final movie = movies[index];
+                return InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => MovieDetailsScreen(movie: movie),
+                      ),
+                    );
+                  },
+                  child: MovieItemCarousal(
+                    movie: movie,
+                    toggleWatchlist: (int movieId) {
+                      // Your watchlist logic here
+                    },
+                  ),
+                );
+              },
             ),
           ),
         ],
@@ -83,5 +84,3 @@ class _MovieCarouselState extends State<MovieCarousel> {
     );
   }
 }
-
-

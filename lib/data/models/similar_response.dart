@@ -3,14 +3,14 @@
 /// total_pages : 9559
 /// total_results : 191180
 
-class Similar_response {
-  Similar_response({
+class SimilarResponse {
+  SimilarResponse({
     this.page,
     this.results,
     this.totalPages,
     this.totalResults,});
 
-  Similar_response.fromJson(dynamic json) {
+  SimilarResponse.fromJson(dynamic json) {
     page = json['page'];
     if (json['results'] != null) {
       results = [];

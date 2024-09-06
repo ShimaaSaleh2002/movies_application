@@ -14,8 +14,8 @@ class RecommendedMovies extends StatefulWidget {
 
 class _RecommendedMoviesState extends State<RecommendedMovies> {
   late Future<TopRatedMoviesResponse> _topRatedMoviesFuture;
-  Set<int> watchlist = {}; // Store movie IDs in the watchlist
-
+  Set<int> watchlist = {};
+  bool isPressed = false;
   @override
   void initState() {
     super.initState();
@@ -99,11 +99,14 @@ class _RecommendedMoviesState extends State<RecommendedMovies> {
                                       IconButton(
                                         icon: Icon(
                                           Icons.bookmark,
-                                          color: isInWatchlist ? const Color(0xFFF7B539) : const Color(0xFF514F4F),
+                                          color: isPressed ? const Color(0xFFF7B539) : const Color(0xFF514F4F),
                                           size: 36,
                                         ),
                                         onPressed: () {
-                                          toggleWatchlist(movie.id, movie); 
+                                           isPressed = !isPressed;
+                                           setState(() {
+
+                                           });
                                         },
                                       ),
                                       Positioned(

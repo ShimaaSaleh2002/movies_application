@@ -6,11 +6,12 @@ class MovieItemCarousal extends StatelessWidget {
   final bool isInWatchlist;
   final Function(int movieId) toggleWatchlist;
 
-  const MovieItemCarousal({
+  const MovieItemCarousal({super.key,
     required this.movie,
     this.isInWatchlist = false,
     required this.toggleWatchlist,
   });
+
 
   @override
   Widget build(BuildContext context) {

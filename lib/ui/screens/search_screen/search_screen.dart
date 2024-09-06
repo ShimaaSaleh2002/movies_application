@@ -41,11 +41,11 @@ class _SearchScreenState extends State<SearchScreen> {
     bool isQueryEmpty = _searchController.text.isEmpty;
 
     return Padding(
-      padding: const EdgeInsets.all(12.0),
+      padding: const EdgeInsets.all(15.0),
       child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.all(5.0),
+              padding: const EdgeInsets.all(15.0),
               child: TextField(
                 controller: _searchController,
                 decoration: InputDecoration(
@@ -85,7 +85,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     children: [
                       const Icon(
                         Icons.local_movies,
-                        size: 80,
+                        size: 85,
                         color: Colors.grey,
                       ),
                       const SizedBox(height: 16),

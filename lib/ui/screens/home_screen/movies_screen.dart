@@ -12,10 +12,10 @@ class MoviesScreen extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          MovieCarousel(),
-          SizedBox(height: 20,),
+          const MovieCarousel(),
+          const SizedBox(height: 20,),
           NewReleasesWidget(),
-          SizedBox(height: 25,),
+          const SizedBox(height: 25,),
           RecommendedMovies(onWatchlistUpdated: (List<Result> list) {  },),
         ],
       ),

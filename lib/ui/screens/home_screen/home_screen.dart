@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movies_app/ui/screens/browse_screen/browse_screen.dart';
+import 'package:movies_app/ui/screens/browse_screen/categories_screen.dart';
 import 'package:movies_app/ui/screens/home_screen/movies_screen.dart';
 import 'package:movies_app/ui/screens/search_screen/search_screen.dart';
 import 'package:movies_app/ui/screens/watchlist_screen/watchlist_screen.dart';
@@ -29,11 +29,11 @@ class _HomeScreenState extends State<HomeScreen> {
           },
           showSelectedLabels: true,
           showUnselectedLabels: true,
-          unselectedLabelStyle: TextStyle(color: Color(0xFFFFB224)),
-          selectedLabelStyle: TextStyle(color: Colors.white),
-          selectedItemColor: Color(0xFFFFB224),
+          unselectedLabelStyle: const TextStyle(color: Color(0xFFFFB224)),
+          selectedLabelStyle: const TextStyle(color: Colors.white),
+          selectedItemColor: const Color(0xFFFFB224),
           unselectedItemColor: Colors.white,
-          backgroundColor: Color(0xFF1A1A1A),
+          backgroundColor: const Color(0xFF1A1A1A),
           type: BottomNavigationBarType.fixed,
           items: const [
             BottomNavigationBarItem(
@@ -60,9 +60,9 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   List <Widget> tabs = [
-    MoviesScreen(),
-    SearchScreen(),
-    BrowseScreen(),
+    const MoviesScreen(),
+    const SearchScreen(),
+    const CategoriesScreen(),
     WatchlistScreen()
   ];
 }
